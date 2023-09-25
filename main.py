@@ -6,6 +6,7 @@ from fairseq import checkpoint_utils
 import gc
 import hashlib
 import json
+import librosa
 import shlex
 import subprocess
 from contextlib import suppress

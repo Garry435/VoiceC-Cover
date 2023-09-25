@@ -224,7 +224,7 @@ def preprocess_song(song_input, mdx_model_params, song_id,mdxnet_models_dir='mdx
         print('[~] Separating Vocals from Instrumental...')
         vocals_path, instrumentals_path = run_mdx(mdx_model_params, song_output_dir, os.path.join(mdxnet_models_dir, 'UVR-MDX-NET-Voc_FT.onnx'), orig_song_path, denoise=True, keep_orig=keep_orig)
     else:
-        vocals_path, instrumental_path=os.path.join(f"{output_dir}/{song_id}",f"{orig_song_path.replace('.mp3','')}_Vocals.wav") , os.path.join(f"{output_dir}/{song_id}",f"{orig_song_path.replace('.mp3','')}_Instrumental.wav")
+        vocals_path, instrumentals_path=os.path.join(f"{output_dir}/{song_id}",f"{orig_song_path.replace('.mp3','')}_Vocals.wav") , os.path.join(f"{output_dir}/{song_id}",f"{orig_song_path.replace('.mp3','')}_Instrumental.wav")
     if not os.path.exists(os.path.join(f"{output_dir}/{song_id}",f"{orig_song_path.replace('.mp3','')}_Vocals_Main.wav")) and os.path.exists(os.path.join(f"{output_dir}/{song_id}",f"{orig_song_path.replace('.mp3','')}_Vocals_Backup.wav")):
         print('[~] Separating Main Vocals from Backup Vocals...')
         backup_vocals_path, main_vocals_path = run_mdx(mdx_model_params, song_output_dir, os.path.join(mdxnet_models_dir, 'UVR_MDXNET_KARA_2.onnx'), vocals_path, suffix='Backup', invert_suffix='Main', denoise=True)

@@ -220,11 +220,17 @@ def preprocess_song(song_input, mdx_model_params, song_id,mdxnet_models_dir='mdx
 
     song_output_dir = os.path.join(output_dir, song_id)
     orig_song_path = convert_to_stereo(orig_song_path)
+    conn = os.path.exists(os.path.join(f"{output_dir}/{song_id}",f"{orig_song_path.replace('.mp3','')}_Vocals.wav")) and os.path.exists(os.path.join(f"{output_dir}/{song_id}",f"{orig_song_path.replace('.mp3','')}_Instrumental.wav")):
+    print("conn : " +conn)
+    print("not conn : " + not conn)
     if not os.path.exists(os.path.join(f"{output_dir}/{song_id}",f"{orig_song_path.replace('.mp3','')}_Vocals.wav")) and os.path.exists(os.path.join(f"{output_dir}/{song_id}",f"{orig_song_path.replace('.mp3','')}_Instrumental.wav")):
         print('[~] Separating Vocals from Instrumental...')
         vocals_path, instrumentals_path = run_mdx(mdx_model_params, song_output_dir, os.path.join(mdxnet_models_dir, 'UVR-MDX-NET-Voc_FT.onnx'), orig_song_path, denoise=True, keep_orig=keep_orig)
     else:
         vocals_path, instrumentals_path=os.path.join(f"{output_dir}/{song_id}",f"{orig_song_path.replace('.mp3','')}_Vocals.wav") , os.path.join(f"{output_dir}/{song_id}",f"{orig_song_path.replace('.mp3','')}_Instrumental.wav")
+    bonn = os.path.exists(os.path.join(f"{output_dir}/{song_id}",f"{orig_song_path.replace('.mp3','')}_Vocals_Main.wav")) and os.path.exists(os.path.join(f"{output_dir}/{song_id}",f"{orig_song_path.replace('.mp3','')}_Vocals_Backup.wav")):
+    print(bonn)
+    print("not bonn : " + not bonn)
     if not os.path.exists(os.path.join(f"{output_dir}/{song_id}",f"{orig_song_path.replace('.mp3','')}_Vocals_Main.wav")) and os.path.exists(os.path.join(f"{output_dir}/{song_id}",f"{orig_song_path.replace('.mp3','')}_Vocals_Backup.wav")):
         print('[~] Separating Main Vocals from Backup Vocals...')
         backup_vocals_path, main_vocals_path = run_mdx(mdx_model_params, song_output_dir, os.path.join(mdxnet_models_dir, 'UVR_MDXNET_KARA_2.onnx'), vocals_path, suffix='Backup', invert_suffix='Main', denoise=True)

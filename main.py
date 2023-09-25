@@ -16,7 +16,7 @@ from pedalboard.io import AudioFile
 from pydub import AudioSegment
 from mdx import run_mdx
 import sox
-
+from scipy.io import wavfile
 from infer_pack.models import (
     SynthesizerTrnMs256NSFsid,
     SynthesizerTrnMs256NSFsid_nono,

@@ -12,3 +12,5 @@ yt_dlp==2023.7.6
 sox==1.4.1
 scipy==1.11.1
 deemix
+onnxruntime
+pedalboard

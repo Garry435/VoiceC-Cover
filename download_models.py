@@ -7,7 +7,11 @@ VoiceC_DOWNLOAD_LINK = 'https://huggingface.co/Garry908/sample-test/resolve/main
 mdxnet_models_dir = 'mdxnet_models'
 
 def dl_model(link, model_name):
-    with requests.get(f'{link}{model_name}') as r:
+    if "huggingface" not in link:
+        linkname = model_name.split('/')[1]
+    else:
+        linkname = model_name
+    with requests.get(f'{link}{linkname}') as r:
         r.raise_for_status()
         with open(f"{model_name}", 'wb') as f:
             for chunk in r.iter_content(chunk_size=8192):

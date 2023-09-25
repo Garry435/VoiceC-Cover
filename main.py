@@ -13,6 +13,7 @@ from contextlib import suppress
 from urllib.parse import urlparse, parse_qs
 import sox
 import yt_dlp
+import numpy as np
 from pedalboard.io import AudioFile
 from pydub import AudioSegment
 from mdx import run_mdx

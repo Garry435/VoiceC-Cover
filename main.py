@@ -204,7 +204,7 @@ def get_hash(filepath):
     return file_hash.hexdigest()[:11]
 
 
-def preprocess_song(song_input, mdx_model_params, song_id, input_type='local'):
+def preprocess_song(song_input, mdx_model_params, song_id,output_dir='song_outputs', input_type='yt'):
     keep_orig = False
     if input_type == 'yt':
         print('[~] Downloading song...')

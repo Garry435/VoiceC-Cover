@@ -156,16 +156,12 @@ def get_vc(device, is_half, config, model_path):
 
 
 def svc_infer(index_path, index_rate, input_path, output_path, pitch_change, f0_method, cpt, version, net_g, filter_radius, tgt_sr, rms_mix_rate, protect, crepe_hop_length, vc, hubert_model):
-    if not output_path.endswith(".mp3"):
-        Print('.mp3 only !')
-        return
     audio = load_audio(input_path, 16000)
     times = [0, 0, 0]
     if_f0 = cpt.get('f0', 1)
     audio_opt = vc.pipeline(hubert_model, net_g, 0, audio, input_path, times, pitch_change, f0_method, index_path, index_rate, if_f0, filter_radius, tgt_sr, 0, rms_mix_rate, version, protect, crepe_hop_length)
     print('Succesfully converted!\nSaving the mp3 file...')
-    AudioSegment(audio_opt.tobytes(), frame_rate=tgt_sr, sample_width=audio_opt.dtype.itemsize, channels=1 if len(audio_opt.shape) == 1 else audio_opt.shape[1]).export(output_path, format='mp3')
-    print(f'saved in {output_path}')
+    wavfile.write(output_path, tgt_sr, audio_opt)
     
 
 def get_model_path(folder):
